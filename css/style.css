@@ -3,9 +3,6 @@
     padding: 0%;
     box-sizing: border-box;
 }
-body {
-    background-image: url('../img/fondo.webp');
-}
 .form-register {
     width: 400px;
     background: #24303c;
