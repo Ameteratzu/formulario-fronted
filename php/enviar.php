@@ -1,23 +1,21 @@
 <?php
-    if ($_SERVER["REQUEST_METHOD" =="POST"]){
-        $nombre = $_POST["nombre"];
-        // $apellidos = $_POST["apellidos"];
-        $correo = $_POST["email"];
-        $mensaje = $_POST["mensaje"];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombre = $_POST["name"];
+    $correo = $_POST["email"];
+    $mensaje = $_POST["comments"];
 
-        $destinatario = "correo@gmail.com";
-        $asunto = "Mensaje de contacto de $nombre";
-        $contenido = "Nombres: $nombre\n";
-        $contenido .= "Correo electronico: $correo\n";
-        $contenido .= "Mensaje: $mensaje\n";
-        $contraseña = $_POST["contraseña"];
+    $destinatario = "quispeamet2@gmail.com";
+    $asunto = "Mensaje de contacto de $nombre";
+    $contenido = "Nombre: $nombre\n";
+    $contenido .= "Correo electrónico: $correo\n";
+    $contenido .= "Mensaje:\n$mensaje\n";
 
-        $cabeceras = "From: $correo ";
-        
-        mail($destinatario,$asunto,$contenido,$cabeceras);
-        
-        echo "<p> Mensaje envidado con exito </p> ";
-        
+    $cabeceras = "From: $correo";
 
+    if (mail($destinatario, $asunto, $contenido, $cabeceras)) {
+        echo "<p>Mensaje enviado con éxito.</p>";
+    } else {
+        echo "<p>Error al enviar el mensaje.</p>";
     }
+}
 ?>
