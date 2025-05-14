@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 body {
-    background-image: url(../img/fondo.webp);
+    background-image: url('../img/fondo.webp');
 }
 .form-register {
     width: 400px;
