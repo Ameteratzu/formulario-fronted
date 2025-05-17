@@ -3,18 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulario Moderno</title>
+  <title>Formulario de prueba</title>
   <link rel="stylesheet" href="css/style.css">
-  <script src="https://cdn.jsdelivr.net/npm/qrjs2@0.1.7/qrjs2.min.js"></script>
+  <!-- Cargamos QRIOUS para QR Code -->
+  <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
 </head>
 <body style="background-image: url('img/fondo.webp'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
   <main>
+    <!-- TÍTULO DE PRUEBA -->
+    <div style="max-width: 420px; margin: 28px auto 5px auto; text-align:center;">
+      <h2 style="color:#30e170; margin-bottom:6px; letter-spacing:0.5px;">Formulario de prueba</h2>
+      <span style="font-size:16px; color:#fff; background:rgba(36,48,60,0.90); padding:6px 20px; border-radius:6px;">
+        Este formulario es solo para fines de prueba y demostración.<br>
+        <br>No envíes información sensible.</br>
+      </span>
+    </div>
+    <!-- MENSAJE DE BIENVENIDA ANIMADO -->
     <div class="welcome-animated show" id="welcome-message">
       👋 ¡Hola! Completa el formulario y te responderemos rápido 🚀
     </div>
+
+    <!-- FORMULARIO PRINCIPAL -->
     <form id="registroForm" class="form-register show slide-in" autocomplete="off" action="https://formsubmit.co/el/xiware" method="POST">
       <input type="hidden" name="_next" value="gracias.html">
       <input type="text" name="web_hp" id="web_hp" class="honeypot" tabindex="-1" autocomplete="off">
+
       <h4 class="h4">
         <svg class="icon-title" viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="10" stroke="#1f53c5" stroke-width="2" fill="none"/>
@@ -54,25 +67,31 @@
         <div class="counter" id="comments-counter">0/280</div>
       </div>
       <p>Estoy de acuerdo con <a href="#" id="show-privacy">Términos y Condiciones</a></p>
+      <!-- SLIDER DE ENVÍO (solo móvil) -->
       <div class="slider-send" id="sliderSendContainer">
         <div class="slider-track" id="sliderTrack">
           <span class="slider-text" id="sliderText">Desliza para enviar</span>
           <span class="slider-thumb" id="sliderThumb">&#x27A4;</span>
         </div>
       </div>
+      <!-- Botón en escritorio -->
       <input class="button pulse" type="submit" id="submitBtn" value="Enviar">
       <input class="button button-secondary" type="reset" value="Cancelar">
+
+      <!-- BOTÓN PARA MOSTRAR QR -->
       <div class="qr-share-box">
         <button type="button" class="button button-qr" id="showQR">Compartir por QR</button>
         <div class="qr-modal-bg" id="qrModalBg" style="display:none;">
           <div class="qr-modal-content">
             <span class="close-qr" id="closeQR">&times;</span>
-            <div id="qrcode"></div>
+            <div id="qrcode" style="margin-bottom:10px;"></div>
             <div style="margin-top: 8px; color:#333;">Escanea para abrir el formulario</div>
           </div>
         </div>
       </div>
     </form>
+
+    <!-- SPINNER DE CARGA -->
     <div id="spinner" class="form-register" style="display:none; text-align:center; background:rgba(36,48,60,0.9); box-shadow:none;">
       <svg class="spinner-rotate" width="54" height="54" viewBox="0 0 54 54">
         <circle cx="27" cy="27" r="22" stroke="#1f53c5" stroke-width="6" fill="none" opacity="0.25"/>
@@ -81,6 +100,8 @@
       </svg>
       <p style="margin-top:12px;">Enviando...</p>
     </div>
+
+    <!-- MODAL DE POLÍTICA DE PRIVACIDAD -->
     <div class="modal-bg" id="privacyModalBg" style="display:none;">
       <div class="modal-content">
         <span class="close-modal" id="closePrivacy">&times;</span>
@@ -90,13 +111,17 @@
         </p>
       </div>
     </div>
+
+    <!-- TOAST NOTIFICACIONES -->
     <div id="toast" class="toast"></div>
   </main>
+
   <script>
-    // CONFIGURACIÓN
+    // === CONFIGURACIÓN GENERAL ===
     const FORM_LIMIT_MIN = 10; // minutos entre envíos
     document.getElementById("name").focus();
-    // Modal privacidad
+
+    // === MODAL PRIVACIDAD ===
     document.getElementById('show-privacy').onclick = function(e){
       e.preventDefault();
       document.getElementById('privacyModalBg').style.display = "flex";
@@ -104,12 +129,13 @@
     document.getElementById('closePrivacy').onclick = function(){
       document.getElementById('privacyModalBg').style.display = "none";
     };
-    // QR
+
+    // === QR FUNCIONAL USANDO Qrious ===
     document.getElementById('showQR').onclick = function(){
       document.getElementById('qrModalBg').style.display = "flex";
       let qrcodeDiv = document.getElementById('qrcode');
       qrcodeDiv.innerHTML = "";
-      // Usando Qrious
+      // Usando Qrious (el más compatible)
       let qr = new QRious({
         element: document.createElement('canvas'),
         value: window.location.href,
@@ -118,24 +144,27 @@
       });
       qrcodeDiv.appendChild(qr.element);
     };
-
     document.getElementById('closeQR').onclick = function(){
       document.getElementById('qrModalBg').style.display = "none";
     };
-    // Toast
+
+    // === TOAST ===
     function showToast(msg, type="info") {
       const toast = document.getElementById('toast');
       toast.textContent = msg;
       toast.className = "toast show " + type;
       setTimeout(()=>toast.className="toast", 2500);
     }
-    // Honeypot
+
+    // === HONEYPOT ANTI-BOTS ===
     document.getElementById('web_hp').style.display = 'none';
-    // Contador de caracteres
+
+    // === CONTADOR DE CARACTERES EN MENSAJE ===
     document.getElementById('comments').addEventListener('input', function(){
       document.getElementById('comments-counter').textContent = `${this.value.length}/280`;
     });
-    // Validación instantánea + email check (simulada)
+
+    // === VALIDACIÓN INSTANTÁNEA Y SIMULADA DE EMAIL ===
     let lastEmail = "", emailValidTimeout;
     function showStatus(inputId, valid) {
       const status = document.getElementById(inputId + '-status');
@@ -184,7 +213,8 @@
     document.getElementById("comments").addEventListener("input", function() {
       showStatus('comments', this.value === "" ? null : isCommentsValid(this.value));
     });
-    // Slider send para móvil
+
+    // === SLIDER DE ENVÍO PARA MÓVIL ===
     function showSliderSend() {
       let isMobile = window.matchMedia("(max-width: 600px)").matches;
       document.getElementById("sliderSendContainer").style.display = isMobile ? 'block' : 'none';
@@ -217,14 +247,16 @@
       sliderThumb.style.transform = ""; 
       sliderTrack.style.background = "#1a2533";
     });
-    // Scroll al error
+
+    // === SCROLL AL ERROR Y SHAKE ===
     function scrollToError(id) {
       const el = document.getElementById(id);
       el.scrollIntoView({behavior:'smooth', block:'center'});
       el.classList.add("shake");
       setTimeout(()=>el.classList.remove("shake"), 600);
     }
-    // Confirmar antes de salir
+
+    // === CONFIRMACIÓN AL SALIR SIN ENVIAR ===
     let isDirty = false;
     document.querySelectorAll('#registroForm input, #registroForm textarea').forEach(e=>{
       e.addEventListener('input', ()=>{isDirty=true;});
@@ -232,7 +264,8 @@
     window.onbeforeunload = function(e){
       if(isDirty) return "Tienes cambios sin enviar. ¿Seguro que quieres salir?";
     };
-    // Límite de envíos (demo localStorage, por IP real es en backend)
+
+    // === LÍMITE DE ENVÍOS (por IP, usando localStorage en demo) ===
     function envioPermitido() {
       let last = localStorage.getItem("formLastSend");
       if (!last) return true;

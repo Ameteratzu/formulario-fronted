@@ -3,14 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>¡Gracias!</title>
+  <title>¡Gracias! - Formulario de prueba</title>
   <link rel="stylesheet" href="css/style.css">
+  <!-- QRious para QR code -->
+  <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
   <style>
+    .gracias-content {
+      text-align: center;
+      padding-bottom: 16px;
+    }
     .success-icon {
       margin: 0 auto 18px auto;
       display: block;
-      width: 75px;
-      height: 75px;
+      width: 80px;
+      height: 80px;
     }
     .success-icon-circle {
       stroke-dasharray: 240;
@@ -28,27 +34,116 @@
     @keyframes check-appear {
       to { stroke-dashoffset: 0; }
     }
-    .gracias-content {
-      text-align: center;
-      padding-bottom: 16px;
+    .qr-gracias {
+      margin: 28px auto 7px auto;
+      padding: 14px 5px 10px 5px;
+      background: #fff;
+      border-radius: 8px;
+      width: max-content;
+      max-width: 96vw;
+      box-shadow: 0 4px 19px #24303c26;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
     }
-    @media (max-width: 480px) {
-      .success-icon { width: 55px; height: 55px; }
+    .qr-fade-in {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 140px;
+      height: 140px;
+      animation: qr-appear .7s cubic-bezier(.22,1.09,.42,.97);
+      margin: 0 auto;
+      max-width: 100vw;
+      max-height: 40vw;
+      box-sizing: content-box;
+    }
+    @keyframes qr-appear {
+      from {
+        opacity: 0;
+        transform: scale(0.8) rotate(-8deg);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+      }
+    }
+    .button-back {
+      display: block;
+      margin: 20px auto 0 auto;
+      background: #1f53c5;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 17px;
+      padding: 13px 36px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.22s, color 0.19s, transform 0.14s;
+      box-shadow: 0 1.5px 6px #1f53c53c;
+      text-decoration: none;
+    }
+    .button-back:hover {
+      background: #30e170;
+      color: #24303c;
+      transform: scale(1.045);
+    }
+    .fade-in-msg {
+      animation: fadeinmsg 1s cubic-bezier(.22,1.09,.42,.97);
+    }
+    @keyframes fadeinmsg {
+      from { opacity: 0; transform: translateY(35px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    @media (max-width: 500px) {
+      .success-icon { width: 54px; height: 54px;}
+      .qr-gracias { width: 98vw; padding: 10px 0 7px 0;}
+      .qr-fade-in { width: 96vw; max-width: 148px; max-height: 42vw;}
     }
   </style>
 </head>
 <body style="background-image: url('img/fondo.webp'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
   <main>
-    <div class="form-register gracias-content">
+    <!-- TÍTULO Y AVISO -->
+    <div style="max-width: 420px; margin: 28px auto 5px auto; text-align:center;">
+      <h2 style="color:#30e170; margin-bottom:7px; letter-spacing:0.5px;">Formulario de prueba</h2>
+      <span style="font-size:16px; color:#fff; background:rgba(36,48,60,0.90); padding:6px 20px; border-radius:6px;">
+        Este formulario es solo para fines de prueba.<br> 
+        ¡Gracias por tu registro!
+      </span>
+    </div>
+
+    <div class="form-register gracias-content fade-in-msg" style="margin-top:15px;">
+      <!-- ANIMACIÓN DE CHECK -->
       <svg class="success-icon" viewBox="0 0 52 52">
         <circle class="success-icon-circle" cx="26" cy="26" r="24" fill="none" stroke="#30e170" stroke-width="4"/>
         <path class="success-icon-check" fill="none" stroke="#30e170" stroke-width="4" d="M15 28l8 8 14-16"/>
       </svg>
       <h4 class="h4" style="margin-top:0;">¡Gracias por tu mensaje!</h4>
-      <p>Hemos recibido tu registro correctamente.<br>
-      Te responderemos pronto a tu correo electrónico.</p>
-      <a class="button" href="index.html" style="margin-top:18px;">Volver al formulario</a>
+      <p style="color:#e8ffe8; margin-bottom:20px;">
+        Hemos recibido tu registro correctamente.<br>
+        Te responderemos pronto a tu correo electrónico.
+      </p>
+      <!-- QR animado y centrado -->
+      <div class="qr-gracias">
+        <div class="qr-fade-in" id="qrcode"></div>
+        <span style="color:#222; font-size:15px;">Escanea para volver al formulario</span>
+      </div>
+      <a class="button-back" href="index.html">&#8678; Volver al formulario</a>
     </div>
   </main>
+  <script>
+    // QR centrado y animado
+    window.addEventListener('DOMContentLoaded', function() {
+      let qr = new QRious({
+        element: document.createElement('canvas'),
+        value: window.location.origin + window.location.pathname.replace("gracias.html", "index.html"),
+        size: 132,
+        level: 'H'
+      });
+      document.getElementById('qrcode').appendChild(qr.element);
+    });
+  </script>
 </body>
 </html>
