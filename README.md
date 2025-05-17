@@ -10,7 +10,7 @@ Contiene un **formulario de registro/contacto** moderno, con validación avanzad
 ¡Así se ve el formulario en acción!
 
 <p align="center">
-  <img src="captura.jpg" alt="Captura de pantalla del formulario de prueba" style="max-width: 700px; border-radius: 10px; box-shadow: 0 6px 24px #0002;">
+  <img src="captura.png" alt="Captura de pantalla del formulario de prueba" style="max-width: 700px; border-radius: 10px; box-shadow: 0 6px 24px #0002;">
 </p>
 
 ---
