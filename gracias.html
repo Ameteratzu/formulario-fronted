@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Gracias!</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .success-icon {
+      margin: 0 auto 18px auto;
+      display: block;
+      width: 75px;
+      height: 75px;
+    }
+    .success-icon-circle {
+      stroke-dasharray: 240;
+      stroke-dashoffset: 480;
+      animation: circle-appear 0.8s forwards;
+    }
+    .success-icon-check {
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+      animation: check-appear 0.4s 0.7s forwards;
+    }
+    @keyframes circle-appear {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes check-appear {
+      to { stroke-dashoffset: 0; }
+    }
+    .gracias-content {
+      text-align: center;
+      padding-bottom: 16px;
+    }
+    @media (max-width: 480px) {
+      .success-icon { width: 55px; height: 55px; }
+    }
+  </style>
+</head>
+<body style="background-image: url('img/fondo.webp'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+  <main>
+    <div class="form-register gracias-content">
+      <svg class="success-icon" viewBox="0 0 52 52">
+        <circle class="success-icon-circle" cx="26" cy="26" r="24" fill="none" stroke="#30e170" stroke-width="4"/>
+        <path class="success-icon-check" fill="none" stroke="#30e170" stroke-width="4" d="M15 28l8 8 14-16"/>
+      </svg>
+      <h4 class="h4" style="margin-top:0;">¡Gracias por tu mensaje!</h4>
+      <p>Hemos recibido tu registro correctamente.<br>
+      Te responderemos pronto a tu correo electrónico.</p>
+      <a class="button" href="index.html" style="margin-top:18px;">Volver al formulario</a>
+    </div>
+  </main>
+</body>
+</html>
