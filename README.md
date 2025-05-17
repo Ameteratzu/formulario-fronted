@@ -49,19 +49,3 @@ Editar
    ```bash
    git clone https://github.com/tu-usuario/tu-repo-formulario.git
    cd tu-repo-formulario
-
-Personaliza tu correo de recepción
-
-En index.html busca:
-
-html
-Copiar
-Editar
-<form ... action="https://formsubmit.co/el/xiware" method="POST">
-Puedes poner tu propio endpoint de FormSubmit (opcional).
-
-Verifica rutas
-Asegúrate de mantener gracias.html en la raíz y que las imágenes/css estén en las carpetas correctas.
-
-Cambia la imagen de fondo si lo deseas
-Cambia /img/fondo.webp por tu propia imagen.
